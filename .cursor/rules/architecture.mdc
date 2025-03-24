@@ -1,0 +1,59 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+so_long/
+│
+├── includes/
+│   ├── so_long.h
+│   ├── map.h
+│   ├── gameplay.h
+│   ├── graphics.h
+│   └── utils.h
+│
+├── srcs/
+│   ├── main.c
+│   │
+│   ├── map/
+│   │   ├── map_parser.c
+│   │   ├── map_valid.c
+│   │   ├── map_check.c
+│   │   └── map_utils.c
+│   │
+│   ├── gameplay/
+│   │   ├── player.c
+│   │   ├── movement.c
+│   │   ├── collect.c
+│   │   └── game_state.c
+│   │
+│   ├── graphics/
+│   │   ├── init.c
+│   │   ├── render.c
+│   │   ├── textures.c
+│   │   └── window.c
+│   │
+│   ├── events/
+│   │   ├── hooks.c
+│   │   ├── keyboard.c
+│   │   └── exit.c
+│   │
+│   └── utils/
+│       ├── error.c
+│       ├── memory.c
+│       └── debug.c
+│
+├── external/
+│   ├── libft/
+│   │   ├── Makefile
+│   │   ├── includes/
+│   │   └── srcs/
+│   │
+│   └── minilibx/
+│
+├── imgs/
+│   └── sprites/
+│
+├── maps/
+│
+└── Makefile

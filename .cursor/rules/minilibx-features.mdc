@@ -1,0 +1,108 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Fonctionnalités de MiniLibX
+
+MiniLibX est une bibliothèque graphique simple conçue à des fins éducatives, offrant des fonctionnalités de base pour créer des applications graphiques. Voici une liste complète de ses caractéristiques, tirée de la documentation.
+
+## Gestion des fenêtres
+
+- **Initialisation de la bibliothèque** :  
+  La fonction `mlx_init()` établit une connexion avec le système graphique (X11 sous Linux ou Cocoa/OpenGL sous macOS).  
+  *Exemple* : `void *mlx_ptr = mlx_init();`
+
+- **Création de nouvelles fenêtres** :  
+  La fonction `mlx_new_window(mlx_ptr, width, height, title)` permet de créer une fenêtre avec une largeur, une hauteur et un titre spécifiés.  
+  *Exemple* : `void *win_ptr = mlx_new_window(mlx_ptr, 800, 600, "Ma Fenêtre");`
+
+- **Définition des titres des fenêtres** :  
+  Le titre est spécifié lors de la création de la fenêtre via le paramètre `title`.
+
+## Dessin
+
+- **Dessin de pixels individuels** :  
+  La fonction `mlx_pixel_put(mlx_ptr, win_ptr, x, y, color)` permet de dessiner un pixel à une position `(x, y)` avec une couleur donnée.  
+  *Exemple* : `mlx_pixel_put(mlx_ptr, win_ptr, 100, 100, 0xFFFFFF);` (blanc).
+
+- **Création de nouvelles images** :  
+  La fonction `mlx_new_image(mlx_ptr, width, height)` crée une image en mémoire avec les dimensions spécifiées.  
+  *Exemple* : `void *img_ptr = mlx_new_image(mlx_ptr, 800, 600);`
+
+- **Accès direct aux données de l’image** :  
+  La fonction `mlx_get_data_addr(img_ptr, &bits_per_pixel, &line_length, &endian)` retourne un pointeur vers les données brutes de l’image, permettant une manipulation pixel par pixel.  
+  *Note* : Les paramètres `bits_per_pixel`, `line_length` et `endian` définissent le format des données.
+
+- **Affichage d’images dans les fenêtres** :  
+  La fonction `mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, x, y)` affiche une image à une position `(x, y)` dans la fenêtre.  
+  *Exemple* : `mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);`
+
+## Gestion des événements
+
+- **Enregistrement de hooks pour les événements** :  
+  La fonction `mlx_hook(win_ptr, event, mask, func, param)` permet d’associer une fonction à un événement spécifique (comme une pression de touche ou un clic de souris).  
+  *Exemple* : `mlx_hook(win_ptr, 2, 1L<<0, key_press, param);`
+
+- **Gestion des événements clavier** :  
+  Réaction aux pressions (`ON_KEYDOWN`) et relâchements (`ON_KEYUP`) de touches via des hooks spécifiques.
+
+- **Gestion des événements souris** :  
+  Réaction aux clics (`ON_MOUSEDOWN`, `ON_MOUSEUP`) et déplacements (`ON_MOUSEMOVE`), bien que la documentation note que cette fonctionnalité peut être limitée ou peu fiable.
+
+- **Gestion des événements de fenêtre** :  
+  Réaction à des événements comme l’exposition (`ON_EXPOSE`) ou la fermeture (`ON_DESTROY`) de la fenêtre.
+
+## Gestion des images
+
+- **Chargement d’images depuis des fichiers XPM** :  
+  La fonction `mlx_xpm_file_to_image(mlx_ptr, filename, &width, &height)` charge une image au format XPM dans une structure utilisable par MiniLibX.  
+  *Exemple* : `void *img = mlx_xpm_file_to_image(mlx_ptr, "image.xpm", &w, &h);`
+
+- **Chargement d’images depuis des fichiers PNG** :  
+  La fonction `mlx_png_file_to_image(mlx_ptr, filename, &width, &height)` charge une image au format PNG.  
+  *Note* : Cette fonction peut présenter des fuites de mémoire selon certaines implémentations.
+
+- **Obtention des dimensions d’une image** :  
+  Les dimensions sont récupérées via les paramètres `width` et `height` lors du chargement.
+
+## Boucle et animation
+
+- **Lancement de la boucle d’événements** :  
+  La fonction `mlx_loop(mlx_ptr)` démarre la boucle principale qui maintient la fenêtre ouverte et gère les événements.  
+  *Exemple* : `mlx_loop(mlx_ptr);`
+
+- **Enregistrement d’un hook de boucle pour des mises à jour continues** :  
+  La fonction `mlx_loop_hook(mlx_ptr, func, param)` appelle une fonction à chaque itération de la boucle, utile pour les animations ou les mises à jour dynamiques.  
+  *Exemple* : `mlx_loop_hook(mlx_ptr, update_frame, param);`
+
+## Gestion des couleurs
+
+- **Spécification des couleurs** :  
+  Les couleurs sont définies via des valeurs entières (souvent au format RGB ou ARGB), utilisées dans des fonctions comme `mlx_pixel_put` ou lors de la manipulation des données d’image.
+
+## Fonctionnalités supplémentaires
+
+- **Destruction des fenêtres** :  
+  La fonction `mlx_destroy_window(mlx_ptr, win_ptr)` ferme une fenêtre spécifique.  
+  *Exemple* : `mlx_destroy_window(mlx_ptr, win_ptr);`
+
+- **Effacement du contenu de la fenêtre** :  
+  La fonction `mlx_clear_window(mlx_ptr, win_ptr)` réinitialise le contenu de la fenêtre à une couleur par défaut (généralement noir).
+
+- **Contrôle du comportement de répétition des touches** :  
+  Les fonctions `mlx_do_key_autorepeat_on(mlx_ptr)` et `mlx_do_key_autorepeat_off(mlx_ptr)` activent ou désactivent la répétition automatique des touches.
+
+- **Obtention de valeurs de couleur** :  
+  La fonction `mlx_get_color_value(mlx_ptr, color)` pourrait être disponible pour convertir ou obtenir une valeur de couleur dans le format attendu par MiniLibX (à confirmer selon l’implémentation).
+
+## Notes spécifiques aux plateformes
+
+- **Sur macOS** : MiniLibX utilise Cocoa et OpenGL pour le rendu graphique.
+- **Sur Linux** : Utilisation de X11, nécessitant des dépendances comme `xorg`, `libxext-dev` et `zlib1g-dev`.
+
+## Limitations
+
+- La gestion des événements souris peut être peu fiable ou mal implémentée.
+- Certaines fonctions, comme `mlx_png_file_to_image`, peuvent entraîner des fuites de mémoire.
+- Les fonctionnalités avancées (dessin de formes, rendu de texte) ne sont pas intégrées nativement et doivent être implémentées manuellement via la manipulation des pixels ou des images.

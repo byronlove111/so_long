@@ -1,0 +1,118 @@
+---
+description: 
+globs: Makefile
+alwaysApply: false
+---
+# Règles des Makefile à 42
+
+Ce document résume toutes les règles liées aux Makefile telles qu'elles apparaissent dans les documents "So Long" et "La Norme". Les Makefile sont essentiels dans les projets à 42 pour automatiser la compilation, et ils doivent respecter des standards stricts pour être conformes. Que vous travailliez sur un projet simple, un projet avec bonus, ou un projet utilisant une bibliothèque comme libft, ce guide couvre tout ce que vous devez savoir.
+
+---
+
+## Introduction
+
+À 42, le Makefile est un outil clé pour compiler vos projets en C. Il doit être clair, fonctionnel et respecter des règles précises pour garantir une évaluation réussie. Voici un résumé complet des exigences, des obligations et des interdictions.
+
+---
+
+## Règles obligatoires pour tous les Makefile
+
+Tout Makefile à 42 doit respecter ces règles de base :
+
+- **Compilation avec flags** : Si le sujet l'exige, le Makefile doit compiler les fichiers sources avec les flags `-Wall`, `-Wextra` et `-Werror`, en utilisant le compilateur `cc`.
+- **Règles minimales** : Le Makefile doit inclure au moins les règles suivantes :
+  - `$(NAME)` : Compile le projet et génère l'exécutable principal (le nom est souvent spécifié dans le sujet, par exemple `so_long`).
+  - `all` : Alias pour la règle `$(NAME)`, compile le projet entièrement.
+  - `clean` : Supprime les fichiers objets générés pendant la compilation.
+  - `fclean` : Supprime les fichiers objets et l'exécutable principal.
+  - `re` : Combine `fclean` et `all` pour tout supprimer puis recompiler.
+- **Sources explicites** : Les fichiers sources nécessaires à la compilation doivent être explicitement listés dans le Makefile (pas de wildcards comme `*.c` pour inclure automatiquement tous les fichiers).
+- **Pas de relink** : Le Makefile ne doit pas relinker inutilement. Si les fichiers objets sont à jour et qu’aucune modification n’a été apportée, la recompilation ne doit pas se déclencher. Un Makefile qui relinke est considéré comme défaillant, rendant le projet non fonctionnel.
+
+---
+
+## Règles spécifiques pour les projets avec bonus
+
+Si votre projet inclut une partie bonus, des règles supplémentaires s’appliquent :
+
+- **Règle bonus** : Ajoutez une règle `bonus` dans le Makefile pour compiler les fonctionnalités bonus. Cette règle doit inclure :
+  - Les fichiers bonus, généralement nommés avec le suffixe `_bonus.{c/h}` (par exemple, `main_bonus.c` ou `utils_bonus.h`), sauf si le sujet spécifie autre chose.
+  - Les headers, bibliothèques ou fonctions interdites dans la partie principale mais autorisées pour les bonus.
+- **Séparation claire** : Les fichiers bonus doivent être distincts des fichiers de la partie obligatoire. La compilation de la partie bonus ne doit pas interférer avec la partie principale.
+- **Évaluation séparée** : La partie bonus n’est évaluée que si la partie obligatoire est parfaite (entièrement fonctionnelle, sans erreurs). Si la partie obligatoire échoue, la règle `bonus` ne sera pas prise en compte.
+
+---
+
+## Règles pour les projets utilisant une bibliothèque (comme libft)
+
+Si le sujet autorise l’utilisation d’une bibliothèque comme libft, suivez ces directives :
+
+- **Inclusion de libft** : Copiez les sources de libft et son Makefile dans un dossier nommé `libft` à la racine de votre projet.
+- **Compilation automatique** : Le Makefile de votre projet doit :
+  1. Appeler le Makefile de libft pour compiler la bibliothèque (par exemple, avec `make -C libft`).
+  2. Lier la bibliothèque compilée (généralement `libft.a`) à votre projet lors de la compilation.
+- **Ordre de compilation** : Assurez-vous que libft est compilé avant votre projet pour éviter des erreurs de dépendances.
+
+---
+
+## Règles pour les projets multibinaires
+
+Pour les projets générant plusieurs exécutables (par exemple, un client et un serveur), des règles spécifiques s’ajoutent :
+
+- **Règle all** : La règle `all` doit compiler tous les binaires du projet.
+- **Règles spécifiques par binaire** : Ajoutez une règle pour chaque binaire (par exemple, `client` et `server`). Chaque règle compile uniquement le binaire correspondant.
+- **Règles obligatoires conservées** : Les règles `$(NAME)`, `clean`, `fclean`, et `re` restent nécessaires, mais `$(NAME)` peut être adapté selon le contexte du projet.
+
+---
+
+## Interdictions et points à éviter
+
+Certaines pratiques sont strictement interdites ou à éviter pour garantir un Makefile conforme :
+
+- **Relinking** : Un Makefile qui relinke (recompile inutilement alors que rien n’a changé) est interdit. Cela rend le projet non fonctionnel et peut entraîner un échec à l’évaluation.
+- **Wildcards implicites** : Ne pas utiliser des wildcards (comme `*.c`) pour inclure les sources. Chaque fichier source doit être listé explicitement pour plus de clarté et de contrôle.
+- **Dépendances manquantes** : Oublier de lister les dépendances (fichiers `.o`, headers, ou bibliothèques) peut causer des erreurs de compilation ou un relinkage inutile.
+
+---
+
+## Vérification et évaluation
+
+- **Vérification humaine** : Contrairement au code C, qui est vérifié par la Norminette, les Makefile sont examinés manuellement par un évaluateur humain pendant la défense. Assurez-vous qu’ils soient lisibles et conformes.
+- **Impact sur la note** : Un Makefile non conforme (relinking, règles manquantes, etc.) peut rendre votre projet non fonctionnel, entraînant une note de 0, même si le code fonctionne.
+- **Testez votre Makefile** : Avant de soumettre, vérifiez que :
+  - Toutes les règles fonctionnent correctement (`make`, `make all`, `make clean`, etc.).
+  - Il ne relinke pas après un `make` suivi d’un autre `make` sans modification.
+  - Les bonus et les bibliothèques (si applicable) se compilent comme prévu.
+
+---
+
+## Exemple de Makefile minimal
+
+Voici un exemple de Makefile respectant les règles de base pour un projet simple comme "So Long" :
+
+```makefile
+NAME = so_long
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+
+SRC = main.c utils.c
+OBJ = $(SRC:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

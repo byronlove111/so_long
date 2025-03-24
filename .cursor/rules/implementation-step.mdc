@@ -1,0 +1,116 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Plan d'implémentation pour le projet So_long
+
+## Étape 1 : Configuration du projet
+1. Créer la structure de dossiers :
+   - `src/` pour les fichiers source
+   - `includes/` pour les headers
+   - `assets/` pour les textures et images
+   - `maps/` pour les fichiers de carte `.ber`
+2. Créer un Makefile avec les règles requises (`all`, `clean`, `fclean`, `re`, `$(NAME)`)
+3. Configurer le `.gitignore` (si utilisation de git)
+4. Créer les fichiers d'en-tête avec la protection contre la double inclusion
+
+## Étape 2 : Création des structures de données
+1. Définir les structures principales :
+   - Structure pour la carte (`t_map`)
+   - Structure pour le joueur (`t_player`)
+   - Structure pour les éléments graphiques (`t_graphic`)
+   - Structure principale contenant toutes les données du jeu (`t_game`)
+2. Inclure toutes les informations nécessaires dans ces structures (positions, états, compteurs, etc.)
+
+## Étape 3 : Parsing et validation de la carte
+1. Créer une fonction de lecture du fichier `.ber`
+2. Vérifier l'extension du fichier (`.ber`)
+3. Lire le contenu et construire la représentation en mémoire
+4. Valider la carte selon les règles :
+   - Vérifier que la carte est rectangulaire
+   - Vérifier qu'elle est entourée de murs ('1')
+   - Vérifier qu'elle contient exactement un 'P' (position de départ)
+   - Vérifier qu'elle contient au moins un 'C' (objet à collecter)
+   - Vérifier qu'elle contient exactement un 'E' (sortie)
+   - Vérifier qu'elle ne contient que des caractères valides ('0', '1', 'C', 'E', 'P')
+5. Vérifier qu'il existe un chemin valide pour collecter tous les objets et atteindre la sortie (algorithme de parcours)
+
+## Étape 4 : Initialisation de MiniLibX
+1. Initialiser la connexion MiniLibX avec `mlx_init()`
+2. Créer une fenêtre avec `mlx_new_window()` de taille adaptée à la carte
+3. Gérer les erreurs potentielles d'initialisation
+
+## Étape 5 : Chargement des ressources graphiques
+1. Créer ou obtenir les images XPM pour :
+   - Le mur ('1')
+   - Le sol ('0')
+   - Les objets à collecter ('C')
+   - La sortie ('E')
+   - Le joueur ('P')
+2. Charger ces images avec `mlx_xpm_file_to_image()`
+3. Vérifier que toutes les images ont été chargées correctement
+
+## Étape 6 : Affichage initial de la carte
+1. Créer une fonction pour dessiner la carte complète
+2. Parcourir la matrice de la carte et afficher les éléments correspondants
+3. Afficher le joueur à sa position initiale
+4. Afficher le nombre de mouvements (initialement à 0) dans le terminal
+
+## Étape 7 : Gestion des événements
+1. Créer des gestionnaires d'événements pour :
+   - Les touches W, A, S, D (ou Z, Q, S, D, ou flèches) pour le déplacement
+   - La touche ESC pour quitter le jeu
+   - Le clic sur la croix de la fenêtre pour quitter
+2. Enregistrer ces gestionnaires avec `mlx_hook()`
+3. Mettre en place `mlx_loop_hook()` si nécessaire pour des mises à jour régulières
+
+## Étape 8 : Implémentation de la logique de jeu
+1. Créer une fonction pour gérer les déplacements du joueur :
+   - Vérifier si le déplacement est valide (pas de collision avec un mur)
+   - Mettre à jour la position du joueur
+   - Incrémenter et afficher le compteur de mouvements
+2. Gérer la collecte des objets :
+   - Détecter si le joueur passe sur un objet
+   - Retirer l'objet de la carte
+   - Mettre à jour le compteur d'objets collectés
+3. Gérer la sortie :
+   - Vérifier si tous les objets ont été collectés
+   - Activer la sortie lorsque tous les objets sont collectés
+   - Terminer le jeu lorsque le joueur atteint la sortie activée
+
+## Étape 9 : Affichage dynamique et mises à jour
+1. Créer une fonction pour mettre à jour l'affichage après chaque mouvement
+2. Redessiner uniquement les éléments qui ont changé (optimisation)
+3. Afficher des informations visuelles sur l'état du jeu (objets collectés, sortie activée)
+
+## Étape 10 : Nettoyage et libération de mémoire
+1. Créer une fonction de nettoyage pour libérer toutes les ressources allouées :
+   - Les images chargées
+   - La fenêtre
+   - La connexion MiniLibX
+   - Toutes les structures de données allouées dynamiquement
+2. Appeler cette fonction lors de la sortie normale ou en cas d'erreur
+
+## Étape 11 : Tests et débogage
+1. Créer plusieurs cartes de test avec différentes configurations
+2. Tester tous les cas d'usage :
+   - Déplacements dans toutes les directions
+   - Collecte de tous les objets
+   - Activation de la sortie
+   - Fin du jeu
+3. Vérifier l'absence de fuites mémoire avec des outils comme Valgrind
+4. Tester les cas d'erreur (fichier inexistant, carte invalide, etc.)
+
+## Étape 12 : Finalisation et optimisation
+1. Vérifier que le code respecte la Norme (utiliser Norminette)
+2. Optimiser le rendu graphique si nécessaire
+3. S'assurer que le Makefile ne relink pas
+4. Vérifier que toutes les fonctionnalités requises sont implémentées
+5. Documenter le code avec des commentaires clairs et utiles (hors des fonctions)
+
+## Étape 13 : Préparation du rendu
+1. Vérifier une dernière fois la conformité avec le sujet
+2. S'assurer que tous les fichiers nécessaires sont présents
+3. Nettoyer les fichiers temporaires ou inutiles
+4. Préparer une démonstration ou des instructions d'utilisation
