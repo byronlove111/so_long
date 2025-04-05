@@ -1,59 +1,244 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
-so_long/
-│
-├── includes/
-│   ├── so_long.h
-│   ├── map.h
-│   ├── gameplay.h
-│   ├── graphics.h
-│   └── utils.h
-│
-├── srcs/
-│   ├── main.c
-│   │
-│   ├── map/
-│   │   ├── map_parser.c
-│   │   ├── map_valid.c
-│   │   ├── map_check.c
-│   │   └── map_utils.c
-│   │
-│   ├── gameplay/
-│   │   ├── player.c
-│   │   ├── movement.c
-│   │   ├── collect.c
-│   │   └── game_state.c
-│   │
-│   ├── graphics/
-│   │   ├── init.c
-│   │   ├── render.c
-│   │   ├── textures.c
-│   │   └── window.c
-│   │
-│   ├── events/
-│   │   ├── hooks.c
-│   │   ├── keyboard.c
-│   │   └── exit.c
-│   │
-│   └── utils/
-│       ├── error.c
-│       ├── memory.c
-│       └── debug.c
-│
-├── external/
-│   ├── libft/
-│   │   ├── Makefile
-│   │   ├── includes/
-│   │   └── srcs/
-│   │
-│   └── minilibx/
-│
-├── imgs/
-│   └── sprites/
-│
-├── maps/
-│
-└── Makefile
+Directory Structure:
+
+└── ./
+    └── so_long
+        ├── .cursor
+        │   └── rules
+        │       ├── architecture.mdc
+        │       ├── general-rules.mdc
+        │       ├── implementation-step.mdc
+        │       ├── learn.mdc
+        │       ├── makefile.mdc
+        │       ├── minilibx-features.mdc
+        │       └── norminette.mdc
+        ├── external
+        │   ├── libft
+        │   │   ├── ft_printf
+        │   │   │   ├── ft_printf.c
+        │   │   │   └── utils.c
+        │   │   ├── get_next_line
+        │   │   │   ├── get_next_line_utils.c
+        │   │   │   └── get_next_line.c
+        │   │   ├── ft_atoi.c
+        │   │   ├── ft_bzero.c
+        │   │   ├── ft_calloc.c
+        │   │   ├── ft_isalnum.c
+        │   │   ├── ft_isalpha.c
+        │   │   ├── ft_isascii.c
+        │   │   ├── ft_isdigit.c
+        │   │   ├── ft_isprint.c
+        │   │   ├── ft_itoa.c
+        │   │   ├── ft_lstadd_back_bonus.c
+        │   │   ├── ft_lstadd_front_bonus.c
+        │   │   ├── ft_lstclear_bonus.c
+        │   │   ├── ft_lstdelone_bonus.c
+        │   │   ├── ft_lstiter_bonus.c
+        │   │   ├── ft_lstlast_bonus.c
+        │   │   ├── ft_lstmap_bonus.c
+        │   │   ├── ft_lstnew_bonus.c
+        │   │   ├── ft_lstsize_bonus.c
+        │   │   ├── ft_memchr.c
+        │   │   ├── ft_memcmp.c
+        │   │   ├── ft_memcpy.c
+        │   │   ├── ft_memmove.c
+        │   │   ├── ft_memset.c
+        │   │   ├── ft_putchar_fd.c
+        │   │   ├── ft_putendl_fd.c
+        │   │   ├── ft_putnbr_fd.c
+        │   │   ├── ft_putstr_fd.c
+        │   │   ├── ft_split.c
+        │   │   ├── ft_strchr.c
+        │   │   ├── ft_strdup.c
+        │   │   ├── ft_striteri.c
+        │   │   ├── ft_strjoin.c
+        │   │   ├── ft_strlcat.c
+        │   │   ├── ft_strlcpy.c
+        │   │   ├── ft_strlen.c
+        │   │   ├── ft_strmapi.c
+        │   │   ├── ft_strncmp.c
+        │   │   ├── ft_strnstr.c
+        │   │   ├── ft_strrchr.c
+        │   │   ├── ft_strtrim.c
+        │   │   ├── ft_substr.c
+        │   │   ├── ft_tolower.c
+        │   │   ├── ft_toupper.c
+        │   │   ├── libft.h
+        │   │   ├── Makefile
+        │   │   └── README.md
+        │   ├── minilibx_mms_20200219
+        │   │   ├── man
+        │   │   │   └── man3
+        │   │   │       ├── mlx_loop.3
+        │   │   │       ├── mlx_new_image.3
+        │   │   │       ├── mlx_new_window.3
+        │   │   │       ├── mlx_pixel_put.3
+        │   │   │       └── mlx.3
+        │   │   ├── font.c
+        │   │   ├── interface.swift
+        │   │   ├── Makefile
+        │   │   ├── mlx_image.swift
+        │   │   ├── mlx_init.swift
+        │   │   ├── mlx_png.c
+        │   │   ├── mlx_rgb.c
+        │   │   ├── mlx_string_put.c
+        │   │   ├── mlx_window.swift
+        │   │   ├── mlx_xpm.c
+        │   │   └── mlx.h
+        │   └── minilibx-linux
+        │       ├── .github
+        │       │   └── workflows
+        │       │       └── ci.yml
+        │       ├── man
+        │       │   ├── man1
+        │       │   │   ├── mlx_loop.1
+        │       │   │   ├── mlx_new_image.1
+        │       │   │   ├── mlx_new_window.1
+        │       │   │   ├── mlx_pixel_put.1
+        │       │   │   └── mlx.1
+        │       │   └── man3
+        │       │       ├── mlx_loop.3
+        │       │       ├── mlx_new_image.3
+        │       │       ├── mlx_new_window.3
+        │       │       ├── mlx_pixel_put.3
+        │       │       └── mlx.3
+        │       ├── test
+        │       │   ├── main.c
+        │       │   ├── Makefile.mk
+        │       │   ├── new_win.c
+        │       │   ├── open.xpm
+        │       │   ├── open24.xpm
+        │       │   ├── open30.xpm
+        │       │   └── run_tests.sh
+        │       ├── configure
+        │       ├── LICENSE
+        │       ├── Makefile
+        │       ├── Makefile.mk
+        │       ├── mlx_clear_window.c
+        │       ├── mlx_destroy_display.c
+        │       ├── mlx_destroy_image.c
+        │       ├── mlx_destroy_window.c
+        │       ├── mlx_expose_hook.c
+        │       ├── mlx_ext_randr.c
+        │       ├── mlx_flush_event.c
+        │       ├── mlx_get_color_value.c
+        │       ├── mlx_get_data_addr.c
+        │       ├── mlx_hook.c
+        │       ├── mlx_init.c
+        │       ├── mlx_int_anti_resize_win.c
+        │       ├── mlx_int_do_nothing.c
+        │       ├── mlx_int_get_visual.c
+        │       ├── mlx_int_param_event.c
+        │       ├── mlx_int_set_win_event_mask.c
+        │       ├── mlx_int_str_to_wordtab.c
+        │       ├── mlx_int_wait_first_expose.c
+        │       ├── mlx_int.h
+        │       ├── mlx_key_hook.c
+        │       ├── mlx_lib_xpm.c
+        │       ├── mlx_loop_hook.c
+        │       ├── mlx_loop.c
+        │       ├── mlx_mouse_hook.c
+        │       ├── mlx_mouse.c
+        │       ├── mlx_new_image.c
+        │       ├── mlx_new_window.c
+        │       ├── mlx_pixel_put.c
+        │       ├── mlx_put_image_to_window.c
+        │       ├── mlx_rgb.c
+        │       ├── mlx_screen_size.c
+        │       ├── mlx_set_font.c
+        │       ├── mlx_string_put.c
+        │       ├── mlx_xpm.c
+        │       ├── mlx.h
+        │       ├── README.md
+        │       └── rgb2c.pl
+        ├── imgs
+        │   ├── sprites
+        │   │   ├── collectible_1.png
+        │   │   ├── collectible_1.xpm
+        │   │   ├── collectible_2.png
+        │   │   ├── collectible_2.xpm
+        │   │   ├── collectible_3.png
+        │   │   ├── collectible_3.xpm
+        │   │   ├── exit_close.png
+        │   │   ├── exit_close.xpm
+        │   │   ├── exit_open.png
+        │   │   ├── exit_open.xpm
+        │   │   ├── exit_open2.png
+        │   │   ├── exit_open2.xpm
+        │   │   ├── floor.png
+        │   │   ├── floor.xpm
+        │   │   ├── player-down.png
+        │   │   ├── player-down.xpm
+        │   │   ├── player-left.png
+        │   │   ├── player-left.xpm
+        │   │   ├── player-right.png
+        │   │   ├── player-right.xpm
+        │   │   ├── player-up.png
+        │   │   ├── player-up.xpm
+        │   │   ├── wall_1.png
+        │   │   ├── wall_1.xpm
+        │   │   ├── wall_2.png
+        │   │   ├── wall_2.xpm
+        │   │   ├── wall_3.png
+        │   │   ├── wall_3.xpm
+        │   │   ├── wall_bl.png
+        │   │   ├── wall_bl.xpm
+        │   │   ├── wall_br.png
+        │   │   ├── wall_br.xpm
+        │   │   ├── wall_h.png
+        │   │   ├── wall_h.xpm
+        │   │   ├── wall_tl.png
+        │   │   ├── wall_tl.xpm
+        │   │   ├── wall_tr.png
+        │   │   ├── wall_tr.xpm
+        │   │   ├── wall_v.png
+        │   │   └── wall_v.xpm
+        │   └── preview.png
+        ├── includes
+        │   ├── gameplay.h
+        │   ├── graphics.h
+        │   ├── map.h
+        │   ├── so_long.h
+        │   └── utils.h
+        ├── maps
+        │   ├── 42.ber
+        │   ├── badcols.ber
+        │   ├── badwall.ber
+        │   ├── big.ber
+        │   ├── large.ber
+        │   ├── nocollectible.ber
+        │   ├── noexit.ber
+        │   ├── noplayer.ber
+        │   ├── simple.ber
+        │   ├── tiny.ber
+        │   └── tooplayer.ber
+        ├── srcs
+        │   ├── events
+        │   │   ├── exit.c
+        │   │   ├── hooks.c
+        │   │   └── keyboard.c
+        │   ├── gameplay
+        │   │   ├── collect.c
+        │   │   ├── game_state.c
+        │   │   ├── movement.c
+        │   │   └── player.c
+        │   ├── graphics
+        │   │   ├── init.c
+        │   │   ├── render.c
+        │   │   ├── textures.c
+        │   │   └── window.c
+        │   ├── map
+        │   │   ├── map_check.c
+        │   │   ├── map_parser.c
+        │   │   ├── map_utils.c
+        │   │   └── map_valid.c
+        │   ├── utils
+        │   │   ├── debug.c
+        │   │   ├── error.c
+        │   │   └── memory.c
+        │   └── main.c
+        └── Makefile
