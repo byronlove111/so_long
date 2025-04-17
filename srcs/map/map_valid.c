@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 16:07:28 by abbouras          #+#    #+#             */
-/*   Updated: 2025/04/17 19:22:13 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:32:11 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,33 @@ static char	**copy_matrix(t_map *map)
  * @param ctx Pointeur vers le contexte du flood fill
  * @return 1 si un chemin existe, 0 sinon
  */
-static int	flood_fill(char **map_copy, int x, int y, t_flood_context *ctx)
+int	flood_fill(char **map_copy, int x, int y, t_flood_context *ctx)
 {
-	if (!map_copy || x < 0 || y < 0 || x >= map->width || y >= map->height)
+	int	h;
+	int	w;
+
+	if (!map_copy)
 		return (0);
-	if (map_copy[y][x] == '1' || map_copy[y][x] == 'V')
-		return (0);
-	if (map_copy[y][x] == 'C')
-		ctx->collectibles++;
-	if (map_copy[y][x] == 'E')
-		ctx->exit_found = 1;
-	map_copy[y][x] = 'V';
-	flood_fill(map_copy, x + 1, y, ctx);
-	flood_fill(map_copy, x - 1, y, ctx);
-	flood_fill(map_copy, x, y + 1, ctx);
-	flood_fill(map_copy, x, y - 1, ctx);
-	return (ctx->collectibles == ctx->total_collect && ctx->exit_found);
+		h = 0;
+		while (map_copy[h])
+			h++;
+		if (h == 0)
+			return (0);
+		w = ft_strlen(map_copy[0]);
+		if (x < 0 || y < 0 || x >= w || y >= h)
+			return (0);
+		if (map_copy[y][x] == '1' || map_copy[y][x] == 'V')
+			return (0);
+		if (map_copy[y][x] == 'C')
+			ctx->collectibles++;
+		if (map_copy[y][x] == 'E')
+			ctx->exit_found = 1;
+		map_copy[y][x] = 'V';
+		flood_fill(map_copy, x + 1, y, ctx);
+		flood_fill(map_copy, x - 1, y, ctx);
+		flood_fill(map_copy, x, y + 1, ctx);
+		flood_fill(map_copy, x, y - 1, ctx);
+		return (ctx->collectibles == ctx->total_collect && ctx->exit_found);
 }
 
 /**

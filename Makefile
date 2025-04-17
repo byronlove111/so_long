@@ -6,7 +6,7 @@
 #    By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/05 15:26:12 by abbouras          #+#    #+#              #
-#    Updated: 2025/04/17 18:22:29 by abbouras         ###   ########.fr        #
+#    Updated: 2025/04/17 19:32:23 by abbouras         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC_FILES = main.c \
            gameplay/collect.c gameplay/game_state.c gameplay/movement.c gameplay/player.c \
            graphics/init.c graphics/render.c graphics/textures.c graphics/window.c \
            map/map_check.c map/map_parser.c map/map_utils.c map/map_path.c map/map_init.c \
+           map/map_valid.c \
            utils/debug.c utils/error.c utils/memory.c
            
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
