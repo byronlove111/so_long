@@ -12,7 +12,6 @@ Directory Structure:
         │       ├── architecture.mdc
         │       ├── general-rules.mdc
         │       ├── implementation-step.mdc
-        │       ├── learn.mdc
         │       ├── makefile.mdc
         │       ├── minilibx-features.mdc
         │       └── norminette.mdc
@@ -67,9 +66,7 @@ Directory Structure:
         │   │   ├── ft_substr.c
         │   │   ├── ft_tolower.c
         │   │   ├── ft_toupper.c
-        │   │   ├── libft.h
-        │   │   ├── Makefile
-        │   │   └── README.md
+        │   │   └── libft.h
         │   ├── minilibx_mms_20200219
         │   │   ├── man
         │   │   │   └── man3
@@ -81,12 +78,18 @@ Directory Structure:
         │   │   ├── font.c
         │   │   ├── interface.swift
         │   │   ├── Makefile
+        │   │   ├── mlx_image.abi.json
         │   │   ├── mlx_image.swift
+        │   │   ├── mlx_image.swiftsourceinfo
+        │   │   ├── mlx_init.abi.json
         │   │   ├── mlx_init.swift
+        │   │   ├── mlx_init.swiftsourceinfo
         │   │   ├── mlx_png.c
         │   │   ├── mlx_rgb.c
         │   │   ├── mlx_string_put.c
+        │   │   ├── mlx_window.abi.json
         │   │   ├── mlx_window.swift
+        │   │   ├── mlx_window.swiftsourceinfo
         │   │   ├── mlx_xpm.c
         │   │   └── mlx.h
         │   └── minilibx-linux
@@ -114,6 +117,7 @@ Directory Structure:
         │       │   ├── open24.xpm
         │       │   ├── open30.xpm
         │       │   └── run_tests.sh
+        │       ├── .gitignore
         │       ├── configure
         │       ├── LICENSE
         │       ├── Makefile
@@ -233,7 +237,10 @@ Directory Structure:
         │   │   └── window.c
         │   ├── map
         │   │   ├── map_check.c
+        │   │   ├── map_init.c
+        │   │   ├── map_line.c
         │   │   ├── map_parser.c
+        │   │   ├── map_path.c
         │   │   ├── map_utils.c
         │   │   └── map_valid.c
         │   ├── utils
