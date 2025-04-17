@@ -238,7 +238,6 @@ Directory Structure:
         │   ├── map
         │   │   ├── map_check.c
         │   │   ├── map_init.c
-        │   │   ├── map_line.c
         │   │   ├── map_parser.c
         │   │   ├── map_path.c
         │   │   ├── map_utils.c

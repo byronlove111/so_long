@@ -16,6 +16,13 @@ typedef struct s_map
 	int		exit_y;
 }	t_map;
 
+typedef struct s_flood_context
+{
+	int	collectibles;
+	int	exit_found;
+	int	total_collect;
+}	t_flood_context;
+
 /* map_parser.c */
 void	parse_map(const char *path, t_map *map);
 int		has_ber_extension(const char *path);
@@ -36,7 +43,10 @@ void	check_path(t_map *map, int start_x, int start_y);
 void	free_matrix(char **matrix);
 int		count_char(t_map *map, char c);
 int		find_char_pos(t_map *map, char c, int *x, int *y);
-int		check_line_content(char *line, int width, int *collect);
-int		process_line(t_map *map, char *line, int i);
+int		is_valid_char(char c);
+
+/* map_valid.c */
+void	validate_map(t_map *map);
+int		flood_fill(char **map_copy, int x, int y, t_flood_context *ctx);
 
 #endif

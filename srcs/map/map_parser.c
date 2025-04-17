@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 16:07:28 by abbouras          #+#    #+#             */
-/*   Updated: 2025/04/17 18:01:40 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:06:45 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,13 @@ static int	fill_matrix(int fd, t_map *map)
 	{
 		line = get_next_line(fd);
 		if (!line)
-		{
-			free_matrix(map->matrix);
 			return (0);
-		}
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
 		map->matrix[i] = ft_strdup(line);
 		free(line);
 		if (!map->matrix[i])
-		{
-			free_matrix(map->matrix);
 			return (0);
-		}
 		i++;
 	}
 	return (1);
@@ -75,6 +69,7 @@ void	parse_map(const char *path, t_map *map)
 {
 	int	fd;
 
+	init_map(map);
 	init_map_reading(path, map);
 	fd = open(path, O_RDONLY);
 	if (fd == -1 || !fill_matrix(fd, map))

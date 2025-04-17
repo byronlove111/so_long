@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 16:07:28 by abbouras          #+#    #+#             */
-/*   Updated: 2025/04/17 18:32:28 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:22:13 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,25 @@ static char	**copy_matrix(t_map *map)
  * @param map_copy Copie de la matrice pour le flood fill
  * @param x Position x courante
  * @param y Position y courante
- * @param map Pointeur vers la structure t_map originale
+ * @param ctx Pointeur vers le contexte du flood fill
  * @return 1 si un chemin existe, 0 sinon
  */
-static int	flood_fill(char **map_copy, int x, int y, t_map *map)
+static int	flood_fill(char **map_copy, int x, int y, t_flood_context *ctx)
 {
-	static int	collectibles = 0;
-	static int	exit_found = 0;
-
-	if (!map_copy || !map || x < 0 || y < 0 || x >= map->width || y >= map->height)
+	if (!map_copy || x < 0 || y < 0 || x >= map->width || y >= map->height)
 		return (0);
 	if (map_copy[y][x] == '1' || map_copy[y][x] == 'V')
 		return (0);
 	if (map_copy[y][x] == 'C')
-		collectibles++;
+		ctx->collectibles++;
 	if (map_copy[y][x] == 'E')
-		exit_found = 1;
+		ctx->exit_found = 1;
 	map_copy[y][x] = 'V';
-	flood_fill(map_copy, x + 1, y, map);
-	flood_fill(map_copy, x - 1, y, map);
-	flood_fill(map_copy, x, y + 1, map);
-	flood_fill(map_copy, x, y - 1, map);
-	return (collectibles == map->total_collect && exit_found);
+	flood_fill(map_copy, x + 1, y, ctx);
+	flood_fill(map_copy, x - 1, y, ctx);
+	flood_fill(map_copy, x, y + 1, ctx);
+	flood_fill(map_copy, x, y - 1, ctx);
+	return (ctx->collectibles == ctx->total_collect && ctx->exit_found);
 }
 
 /**
@@ -83,10 +80,11 @@ static int	flood_fill(char **map_copy, int x, int y, t_map *map)
  */
 static int	is_map_playable(t_map *map)
 {
-	char	**map_copy;
-	int		player_x;
-	int		player_y;
-	int		result;
+	char			**map_copy;
+	int				player_x;
+	int				player_y;
+	int				result;
+	t_flood_context	ctx;
 
 	if (!map || !map->matrix)
 		return (0);
@@ -95,7 +93,10 @@ static int	is_map_playable(t_map *map)
 	map_copy = copy_matrix(map);
 	if (!map_copy)
 		return (0);
-	result = flood_fill(map_copy, player_x, player_y, map);
+	ctx.collectibles = 0;
+	ctx.exit_found = 0;
+	ctx.total_collect = map->total_collect;
+	result = flood_fill(map_copy, player_x, player_y, &ctx);
 	free_matrix(map_copy);
 	return (result);
 }
