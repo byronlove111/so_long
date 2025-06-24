@@ -1,20 +1,6 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/04/05 15:26:12 by abbouras          #+#    #+#              #
-#    Updated: 2025/04/17 19:32:23 by abbouras         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = so_long
-
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-# CFLAGS = 
 RM = rm -f
 
 # Libft paths
@@ -24,17 +10,14 @@ LIBFT = $(LIBFT_DIR)/libft.a
 # Détection automatique du système d'exploitation
 UNAME = $(shell uname)
 
-# minilibx paths - Commentez/décommentez selon votre système
-# Pour basculer entre macOS et Linux, commentez/décommentez les sections correspondantes
-
-# Pour macOS
+# minilibx paths - Adaptation pour macOS et Linux
 ifeq ($(UNAME), Darwin)
 MLX_DIR = external/minilibx_mms_20200219
 MLX = $(MLX_DIR)/libmlx.dylib
 MLX_FLAGS = -framework OpenGL -framework AppKit
 MLX_COPY = cp $(MLX) .
 else
-# Pour Linux
+# Pour Linux (au cas où)
 MLX_DIR = external/minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 MLX_FLAGS = -lXext -lX11 -lm -lz
@@ -42,20 +25,28 @@ MLX_COPY = # Pas besoin de copier pour Linux
 endif
 
 # Headers
-INCLUDES = -I./includes -I$(LIBFT_DIR) -I$(MLX_DIR)
+INCLUDES = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
 
-# Source files
-SRC_DIR = srcs
-SRC_FILES = main.c \
-           events/exit.c events/hooks.c events/keyboard.c \
-           gameplay/collect.c gameplay/game_state.c gameplay/movement.c gameplay/player.c \
-           graphics/init.c graphics/render.c graphics/textures.c graphics/window.c \
-           map/map_check.c map/map_parser.c map/map_utils.c map/map_path.c map/map_init.c \
-           map/map_valid.c \
-           utils/debug.c utils/error.c utils/memory.c
-           
-SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
-OBJ = $(SRC:.c=.o)
+# Source files - nouvelle architecture avec modules de rendu refactorisés
+SRCS =  src/main.c \
+        src/engine/game_setup.c \
+        src/engine/system_manager.c \
+        src/render/graphics_initialization.c \
+        src/render/texture_asset_loader.c \
+        src/render/memory_cleanup_manager.c \
+        src/render/game_state_initializer.c \
+        src/map/map_file_handler.c \
+        src/map/map_structure_validator.c \
+        src/map/map_element_validator.c \
+        src/map/map_connectivity_analyzer.c \
+        src/map/map_accessibility_checker.c \
+        src/map/map_error_manager.c \
+        src/map/map_render_engine.c \
+        src/map/map_main_validator.c \
+        src/player/player_controller.c \
+        src/utils/resource_manager.c
+
+OBJS = $(SRCS:.c=.o)
 
 # Règles
 all: $(NAME)
@@ -69,8 +60,8 @@ $(MLX):
 	$(MAKE) -C $(MLX_DIR)
 
 # Compilation du projet principal
-$(NAME): $(LIBFT) $(MLX) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(MLX) $(MLX_FLAGS)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS)
 	$(MLX_COPY)
 
 # Règle pour les fichiers objets
@@ -79,7 +70,7 @@ $(NAME): $(LIBFT) $(MLX) $(OBJ)
 
 # Nettoyage des fichiers objets
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(MLX_DIR) clean
 
