@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 05:10:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/23 05:09:06 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 20:36:09 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void	terminate_game_application(t_game *game_instance)
 		free(game_instance->map);
 	}
 	if (game_instance->graphics)
+	{
 		cleanup_graphics_resources(game_instance->graphics);
+		free(game_instance->graphics);
+	}
 	free(game_instance);
 	exit(0);
 }
