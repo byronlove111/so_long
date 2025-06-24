@@ -51,8 +51,6 @@ int	configure_graphics_system(t_game *instance)
 	if (!instance->graphics)
 		return (0);
 	reset_graphics_structure(instance->graphics);
-	
-	// Initialisation MLX en premier
 	instance->graphics->mlx = mlx_init();
 	if (!instance->graphics->mlx)
 	{
@@ -60,12 +58,8 @@ int	configure_graphics_system(t_game *instance)
 		instance->graphics = NULL;
 		return (0);
 	}
-	
 	if (!initialize_graphics_system(instance->graphics, instance->map))
-	{
-		// Ne pas faire de cleanup ici, handle_init_failure s'en occupe
 		return (0);
-	}
 	return (1);
 }
 
