@@ -14,11 +14,11 @@
 # define PLAYER_H
 
 /* Inclusion des codes de touches selon l'OS */
-#ifdef __APPLE__
-# include "keys_macos.h"
-#else
-# include "keys_linux.h"
-#endif
+# ifdef __APPLE__
+#  include "keys_macos.h"
+# else
+#  include "keys_linux.h"
+# endif
 
 # include "so_long.h"
 
@@ -72,6 +72,7 @@ int		process_keyboard_input(int key_code, t_game *game_instance);
  * @param offset_y Déplacement vertical (-1, 0, 1)
  * @return void
  */
-void	execute_player_movement(t_game *game_instance, int offset_x, int offset_y);
+void	execute_player_movement(t_game *game_instance,
+			int offset_x, int offset_y);
 
 #endif

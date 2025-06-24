@@ -72,7 +72,7 @@ typedef struct s_graphics
  * @param level_data Données de la carte de jeu
  * @return 1 si succès, 0 si échec
  */
-int				initialize_graphics_system(t_graphics *render_system, 
+int				initialize_graphics_system(t_graphics *render_system,
 					t_map *level_data);
 
 /**
@@ -92,7 +92,8 @@ int				establish_mlx_connection(t_graphics *render_system);
  * @param level_data Données de la carte pour calculer les dimensions
  * @return 1 si succès, 0 si échec
  */
-int				create_main_window(t_graphics *render_system, t_map *level_data);
+int				create_main_window(
+					t_graphics *render_system, t_map *level_data);
 
 /*
 ** ============================================================================

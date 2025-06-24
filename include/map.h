@@ -40,12 +40,13 @@ typedef struct s_map
 
 typedef struct s_pos
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 }							t_pos;
 
 /* Map File Handler */
-int							load_game_level(t_map *level_data, char *level_filename);
+int							load_game_level(t_map *level_data,
+								char *level_filename);
 size_t						calculate_row_width(char *text_line);
 
 /* Map Structure Validator */
@@ -55,28 +56,35 @@ int							validate_map_structure(t_map *level_data);
 
 /* Map Element Validator */
 int							is_valid_char(char game_char);
-void						tally_game_elements(t_map *level_data, int *player_total, int *exit_total, int *collectible_total);
-int							verify_element_quantities(int player_count, int exit_count, int collectible_count);
+void						tally_game_elements(t_map *level_data,
+								int *player_total, int *exit_total,
+								int *collectible_total);
+int							verify_element_quantities(int player_count,
+								int exit_count, int collectible_count);
 int							verify_game_elements(t_map *level_data);
 
 /* Map Connectivity Analyzer */
 char						**duplicate_level_grid(t_map *level_data);
-void						mark_collectible_accessible_areas(char **test_grid, t_pos pos, t_map *bounds);
-void						mark_all_accessible_areas(char **test_grid, t_pos pos, t_map *bounds);
-void						locate_player_spawn(t_map *level_data, int *spawn_x, int *spawn_y);
+void						mark_collectible_accessible_areas(char **test_grid,
+								t_pos pos, t_map *bounds);
+void						mark_all_accessible_areas(char **test_grid,
+								t_pos pos, t_map *bounds);
+void						locate_player_spawn(t_map *level_data,
+								int *spawn_x, int *spawn_y);
 int							analyze_level_connectivity(t_map *level_data);
 
 /* Map Connectivity Validator */
-int							verify_collectibles_reachable(char **connectivity_test, t_map *level_data);
-int							verify_exit_reachable(char **connectivity_test, t_map *level_data);
-
-
+int							verify_collectibles_reachable(
+								char **connectivity_test, t_map *level_data);
+int							verify_exit_reachable(char **connectivity_test,
+								t_map *level_data);
 
 /* Map Error Manager */
 void						display_validation_error(int error_type);
 
 /* Map Render Engine */
-int							display_complete_level(t_graphics *display_system, t_map *level_data);
+int							display_complete_level(t_graphics *display_system,
+								t_map *level_data);
 
 /* Map Main Validator */
 int							perform_complete_validation(t_map *level_data);
