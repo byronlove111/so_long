@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 04:30:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/24 12:44:02 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:49:56 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ void	locate_character_spawn(t_game *instance)
 	int	row;
 	int	col;
 
-	printf("Locating character spawn point...\n");
+	ft_printf("Locating character spawn point...\n");
 	row = 0;
 	while (row < instance->map->height)
 	{
 		col = 0;
 		while (col < instance->map->width)
 		{
-			printf("Scanning grid [%d,%d]: '%c'\n", row, col,
+			ft_printf("Scanning grid [%d,%d]: '%c'\n", row, col,
 				instance->map->map[row][col]);
 			if (instance->map->map[row][col] == 'P')
 			{
 				instance->player.x = col;
 				instance->player.y = row;
-				printf("Character spawn located at coordinates [%d,%d]\n", row,
+				ft_printf("Character spawn located at coordinates [%d,%d]\n", row,
 					col);
 				return ;
 			}
@@ -47,7 +47,7 @@ void	locate_character_spawn(t_game *instance)
 		}
 		row++;
 	}
-	printf("ERROR: No player spawn point detected in level data!\n");
+	ft_printf("ERROR: No player spawn point detected in level data!\n");
 }
 
 /**
@@ -66,7 +66,7 @@ void	calculate_item_total(t_game *instance)
 	int	y_pos;
 	int	x_pos;
 
-	printf("Analyzing item distribution across level...\n");
+	ft_printf("Analyzing item distribution across level...\n");
 	instance->collectibles_count = 0;
 	y_pos = 0;
 	while (y_pos < instance->map->height)
@@ -80,7 +80,7 @@ void	calculate_item_total(t_game *instance)
 		}
 		y_pos++;
 	}
-	printf("Total collectible items detected: %d\n",
+	ft_printf("Total collectible items detected: %d\n",
 		instance->collectibles_count);
 }
 
