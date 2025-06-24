@@ -46,15 +46,15 @@ void	cleanup_graphics_resources(t_graphics *render_system)
 	if (render_system->mlx)
 	{
 		if (render_system->textures.player)
-			mlx_destroy_image(render_system->mlx, 
+			mlx_destroy_image(render_system->mlx,
 				render_system->textures.player);
 		if (render_system->textures.exit)
 			mlx_destroy_image(render_system->mlx, render_system->textures.exit);
 		if (render_system->textures.collect)
-			mlx_destroy_image(render_system->mlx, 
+			mlx_destroy_image(render_system->mlx,
 				render_system->textures.collect);
 		if (render_system->textures.floor)
-			mlx_destroy_image(render_system->mlx, 
+			mlx_destroy_image(render_system->mlx,
 				render_system->textures.floor);
 		if (render_system->textures.wall)
 			mlx_destroy_image(render_system->mlx, render_system->textures.wall);
@@ -67,4 +67,4 @@ void	cleanup_graphics_resources(t_graphics *render_system)
 		render_system->mlx = NULL;
 	}
 	free(render_system);
-} 
+}

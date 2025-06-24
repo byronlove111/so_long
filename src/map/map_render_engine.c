@@ -75,4 +75,4 @@ int	display_complete_level(t_graphics *display_system, t_map *level_data)
 		current_row++;
 	}
 	return (1);
-} 
+}

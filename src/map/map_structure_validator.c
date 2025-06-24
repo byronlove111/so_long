@@ -88,4 +88,4 @@ int	validate_map_structure(t_map *level_data)
 	if (validation_result != MAP_OK)
 		return (validation_result);
 	return (MAP_OK);
-} 
+}

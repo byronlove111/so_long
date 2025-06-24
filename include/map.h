@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:12:34 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/24 12:10:22 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:34:11 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int							verify_game_elements(t_map *level_data);
 
 /* Map Connectivity Analyzer */
 char						**duplicate_level_grid(t_map *level_data);
-void						mark_collectible_accessible_areas(char **test_grid, int pos_x, int pos_y, int grid_width, int grid_height);
-void						mark_all_accessible_areas(char **test_grid, int pos_x, int pos_y, int grid_width, int grid_height);
+void						mark_collectible_accessible_areas(char **test_grid, t_pos pos, t_map *bounds);
+void						mark_all_accessible_areas(char **test_grid, t_pos pos, t_map *bounds);
 void						locate_player_spawn(t_map *level_data, int *spawn_x, int *spawn_y);
 int							analyze_level_connectivity(t_map *level_data);
 

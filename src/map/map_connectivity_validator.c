@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 12:05:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/24 12:06:25 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:39:59 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	verify_collectibles_reachable(char **connectivity_test, t_map *level_data)
 		col_index = 0;
 		while (col_index < level_data->width)
 		{
-			if (level_data->map[row_index][col_index] == 'C' 
+			if (level_data->map[row_index][col_index] == 'C'
 				&& connectivity_test[row_index][col_index] != 'V')
 				return (0);
 			col_index++;
@@ -60,7 +60,7 @@ int	verify_exit_reachable(char **connectivity_test, t_map *level_data)
 		col_index = 0;
 		while (col_index < level_data->width)
 		{
-			if (level_data->map[row_index][col_index] == 'E' 
+			if (level_data->map[row_index][col_index] == 'E'
 				&& connectivity_test[row_index][col_index] != 'V')
 				return (0);
 			col_index++;
@@ -74,20 +74,17 @@ int	verify_exit_reachable(char **connectivity_test, t_map *level_data)
  * Effectue la validation d'accessibilité des collectibles.
  * Teste si tous les objets peuvent être collectés sans passer par la sortie.
  * @param level_data Structure contenant la carte à analyser
- * @param spawn_x Position X de départ du joueur
- * @param spawn_y Position Y de départ du joueur
+ * @param spawn_pos Position de départ du joueur
  * @return MAP_OK si accessible, ERR_NO_PATH sinon
  */
-static int	validate_collectibles_access(t_map *level_data, int spawn_x, 
-		int spawn_y)
+static int	validate_collectibles_access(t_map *level_data, t_pos spawn_pos)
 {
 	char	**collectible_test;
 
 	collectible_test = duplicate_level_grid(level_data);
 	if (!collectible_test)
 		return (ERR_MEMORY);
-	mark_collectible_accessible_areas(collectible_test, spawn_x, spawn_y, 
-		level_data->width, level_data->height);
+	mark_collectible_accessible_areas(collectible_test, spawn_pos, level_data);
 	if (!verify_collectibles_reachable(collectible_test, level_data))
 	{
 		deallocate_string_array(collectible_test);
@@ -101,19 +98,17 @@ static int	validate_collectibles_access(t_map *level_data, int spawn_x,
  * Effectue la validation d'accessibilité de la sortie.
  * Teste si la sortie peut être atteinte après collecte des objets.
  * @param level_data Structure contenant la carte à analyser
- * @param spawn_x Position X de départ du joueur
- * @param spawn_y Position Y de départ du joueur
+ * @param spawn_pos Position de départ du joueur
  * @return MAP_OK si accessible, ERR_NO_PATH sinon
  */
-static int	validate_exit_access(t_map *level_data, int spawn_x, int spawn_y)
+static int	validate_exit_access(t_map *level_data, t_pos spawn_pos)
 {
 	char	**exit_test;
 
 	exit_test = duplicate_level_grid(level_data);
 	if (!exit_test)
 		return (ERR_MEMORY);
-	mark_all_accessible_areas(exit_test, spawn_x, spawn_y, 
-		level_data->width, level_data->height);
+	mark_all_accessible_areas(exit_test, spawn_pos, level_data);
 	if (!verify_exit_reachable(exit_test, level_data))
 	{
 		deallocate_string_array(exit_test);
@@ -134,14 +129,17 @@ int	analyze_level_connectivity(t_map *level_data)
 {
 	int		spawn_x;
 	int		spawn_y;
+	t_pos	spawn_pos;
 	int		result;
 
 	locate_player_spawn(level_data, &spawn_x, &spawn_y);
-	result = validate_collectibles_access(level_data, spawn_x, spawn_y);
+	spawn_pos.x = spawn_x;
+	spawn_pos.y = spawn_y;
+	result = validate_collectibles_access(level_data, spawn_pos);
 	if (result != MAP_OK)
 		return (result);
-	result = validate_exit_access(level_data, spawn_x, spawn_y);
+	result = validate_exit_access(level_data, spawn_pos);
 	if (result != MAP_OK)
 		return (result);
 	return (MAP_OK);
-} 
+}

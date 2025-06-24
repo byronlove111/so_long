@@ -21,13 +21,13 @@
  * @param asset_path Chemin vers le fichier XPM
  * @return 1 si succès, 0 si échec
  */
-static int	load_individual_asset(void *mlx_instance, void **texture_ptr, 
+static int	load_individual_asset(void *mlx_instance, void **texture_ptr,
 		char *asset_path)
 {
 	int	sprite_width;
 	int	sprite_height;
 
-	*texture_ptr = mlx_xpm_file_to_image(mlx_instance, asset_path, 
+	*texture_ptr = mlx_xpm_file_to_image(mlx_instance, asset_path,
 			&sprite_width, &sprite_height);
 	if (!*texture_ptr)
 	{
@@ -48,20 +48,20 @@ int	load_game_assets(t_graphics *render_system)
 {
 	if (!render_system || !render_system->mlx)
 		return (0);
-	if (!load_individual_asset(render_system->mlx, 
+	if (!load_individual_asset(render_system->mlx,
 			&render_system->textures.player, PLAYER_XPM))
 		return (0);
-	if (!load_individual_asset(render_system->mlx, 
+	if (!load_individual_asset(render_system->mlx,
 			&render_system->textures.wall, WALL_XPM))
 		return (0);
-	if (!load_individual_asset(render_system->mlx, 
+	if (!load_individual_asset(render_system->mlx,
 			&render_system->textures.exit, EXIT_XPM))
 		return (0);
-	if (!load_individual_asset(render_system->mlx, 
+	if (!load_individual_asset(render_system->mlx,
 			&render_system->textures.floor, FLOOR_XPM))
 		return (0);
-	if (!load_individual_asset(render_system->mlx, 
+	if (!load_individual_asset(render_system->mlx,
 			&render_system->textures.collect, COLLECT_XPM))
 		return (0);
 	return (1);
-} 
+}

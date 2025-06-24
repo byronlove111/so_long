@@ -90,11 +90,11 @@ size_t	calculate_row_width(char *text_line)
  * @param level_filename Chemin vers le fichier de niveau
  * @return 1 en cas de succès, 0 en cas d'erreur
  */
-static	int	prepare_level_structure(t_map *level_data, char *level_filename)
+static int	prepare_level_structure(t_map *level_data, char *level_filename)
 {
 	if (!verify_level_extension(level_filename))
-		return (ft_putstr_fd("Error\nInvalid file extension. Must be .ber", 2)
-			, 0);
+		return (ft_putstr_fd("Error\nInvalid file extension. Must be .ber", 2),
+			0);
 	level_data->height = calculate_level_height(level_filename);
 	if (level_data->height <= 0)
 		return (ft_putstr_fd("Error\nMemory allocation failed", 2), 0);
@@ -136,4 +136,4 @@ int	load_game_level(t_map *level_data, char *level_filename)
 	level_data->map[row_index] = NULL;
 	close(file_descriptor);
 	return (1);
-} 
+}

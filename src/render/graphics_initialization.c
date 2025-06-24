@@ -83,4 +83,4 @@ int	initialize_graphics_system(t_graphics *render_system, t_map *level_data)
 		return (0);
 	}
 	return (1);
-} 
+}

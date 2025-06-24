@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 23:08:50 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/23 05:12:06 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:44:44 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@
  * @param target_y Coordonnée Y de la destination
  * @return void
  */
-static void	handle_item_collection(t_game *game_instance, int target_x, int target_y)
+static void	handle_item_collection(t_game *game_instance, int target_x,
+		int target_y)
 {
 	if (game_instance->map->map[target_y][target_x] == 'C')
 	{
 		game_instance->collectibles_count--;
 		game_instance->map->map[target_y][target_x] = '0';
-		ft_printf("Item collected! Remaining: %d\n", 
+		ft_printf("Item collected! Remaining: %d\n",
 			game_instance->collectibles_count);
 	}
 }
@@ -41,7 +42,8 @@ static void	handle_item_collection(t_game *game_instance, int target_x, int targ
  * @param target_y Coordonnée Y de la destination
  * @return 1 si sortie activée, 0 sinon
  */
-static int	check_exit_conditions(t_game *game_instance, int target_x, int target_y)
+static int	check_exit_conditions(t_game *game_instance, int target_x,
+		int target_y)
 {
 	if (game_instance->map->map[target_y][target_x] == 'E')
 	{
@@ -67,9 +69,11 @@ static int	check_exit_conditions(t_game *game_instance, int target_x, int target
  * @param new_y Nouvelle coordonnée Y du joueur
  * @return void
  */
-static void	update_character_position(t_game *game_instance, int new_x, int new_y)
+static void	update_character_position(t_game *game_instance, int new_x,
+		int new_y)
 {
-	game_instance->map->map[game_instance->player.y][game_instance->player.x] = '0';
+	game_instance->map->map[game_instance->player.y]
+	[game_instance->player.x] = '0';
 	game_instance->player.x = new_x;
 	game_instance->player.y = new_y;
 	game_instance->map->map[new_y][new_x] = 'P';
@@ -87,7 +91,8 @@ static void	update_character_position(t_game *game_instance, int new_x, int new_
  * @param offset_y Déplacement vertical (-1, 0, 1)
  * @return void
  */
-void	execute_player_movement(t_game *game_instance, int offset_x, int offset_y)
+void	execute_player_movement(t_game *game_instance, int offset_x,
+		int offset_y)
 {
 	int	destination_x;
 	int	destination_y;

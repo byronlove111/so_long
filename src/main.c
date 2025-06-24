@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:12:34 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/23 05:25:38 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:24:34 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
  * Fonction wrapper qui appelle terminate_game_application et
  * retourne int pour mlx_hook
  * @param game_instance Structure principale du jeu
- * @return 0 (jamais atteint car terminate_game_application termine le programme)
+ * @return 0 (jamais atteint car terminate_game_application
+ * termine le programme)
  */
 static int	close_window_handler(t_game *game_instance)
 {

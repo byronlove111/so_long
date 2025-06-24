@@ -114,6 +114,8 @@ int	verify_game_elements(t_map *level_data)
 		}
 		row_scanner++;
 	}
-	tally_game_elements(level_data, &player_count, &exit_count, &collectible_count);
-	return (verify_element_quantities(player_count, exit_count, collectible_count));
-} 
+	tally_game_elements(level_data, &player_count, &exit_count,
+		&collectible_count);
+	return (verify_element_quantities(player_count, exit_count,
+			collectible_count));
+}

@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 04:48:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/23 05:12:06 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:41:45 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,4 @@ t_game	*create_game_instance(char *level_file)
 	}
 	initialize_game_state(instance);
 	return (instance);
-} 
+}

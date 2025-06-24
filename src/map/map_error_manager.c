@@ -44,4 +44,4 @@ void	display_validation_error(int error_type)
 		ft_putstr_fd("Error\nMemory allocation failed\n", 2);
 	else if (error_type == ERR_NO_PATH)
 		ft_putstr_fd("Error\nMap has no valid path\n", 2);
-} 
+}

@@ -25,4 +25,4 @@ void	configure_initial_game_state(t_game *game_instance)
 	game_instance->is_exit_reached = 0;
 	locate_character_spawn(game_instance);
 	calculate_item_total(game_instance);
-} 
+}

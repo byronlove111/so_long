@@ -33,4 +33,4 @@ int	perform_complete_validation(t_map *level_data)
 	if (validation_result != MAP_OK)
 		return (display_validation_error(validation_result), validation_result);
 	return (MAP_OK);
-} 
+}
