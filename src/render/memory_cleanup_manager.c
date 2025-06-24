@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 05:04:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/24 15:28:44 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:34:23 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,4 @@ void	cleanup_graphics_resources(t_graphics *render_system)
 		free(render_system->mlx);
 		render_system->mlx = NULL;
 	}
-	free(render_system);
 }

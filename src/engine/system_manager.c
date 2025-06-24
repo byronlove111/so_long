@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 04:48:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/24 15:31:51 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:34:58 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,9 @@ void	handle_init_failure(t_game *instance, int cleanup_stage)
 		free(instance->map);
 	}
 	if (cleanup_stage >= 2 && instance->graphics)
-		cleanup_graphics_resources(instance->graphics);
-	if (cleanup_stage >= 3 && instance->graphics && instance->graphics->mlx)
 	{
-#ifndef __APPLE__
-		mlx_destroy_display(instance->graphics->mlx);
-#endif
-		free(instance->graphics->mlx);
+		cleanup_graphics_resources(instance->graphics);
+		free(instance->graphics);
 	}
 	if (instance)
 		free(instance);
@@ -61,12 +57,13 @@ int	configure_graphics_system(t_game *instance)
 	if (!instance->graphics->mlx)
 	{
 		free(instance->graphics);
+		instance->graphics = NULL;
 		return (0);
 	}
 	
 	if (!initialize_graphics_system(instance->graphics, instance->map))
 	{
-		cleanup_graphics_resources(instance->graphics);
+		// Ne pas faire de cleanup ici, handle_init_failure s'en occupe
 		return (0);
 	}
 	return (1);
