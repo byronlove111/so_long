@@ -60,9 +60,7 @@ void	cleanup_graphics_resources(t_graphics *render_system)
 			mlx_destroy_image(render_system->mlx, render_system->textures.wall);
 		if (render_system->window)
 			mlx_destroy_window(render_system->mlx, render_system->window);
-#ifndef __APPLE__
 		mlx_destroy_display(render_system->mlx);
-#endif
 		free(render_system->mlx);
 		render_system->mlx = NULL;
 	}

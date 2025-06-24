@@ -93,14 +93,14 @@ size_t	calculate_row_width(char *text_line)
 static int	prepare_level_structure(t_map *level_data, char *level_filename)
 {
 	if (!verify_level_extension(level_filename))
-		return (ft_putstr_fd("Error\nInvalid file extension. Must be .ber", 2),
+		return (ft_putstr_fd("Error\nInvalid file extension. Must be .ber\n", 2),
 			0);
 	level_data->height = calculate_level_height(level_filename);
 	if (level_data->height <= 0)
-		return (ft_putstr_fd("Error\nMemory allocation failed", 2), 0);
+		return (ft_putstr_fd("Error\nMemory allocation failed\n", 2), 0);
 	level_data->map = malloc(sizeof(char *) * (level_data->height + 1));
 	if (!level_data->map)
-		return (ft_putstr_fd("Error\nMemory allocation failed", 2), 0);
+		return (ft_putstr_fd("Error\nMemory allocation failed\n", 2), 0);
 	return (1);
 }
 

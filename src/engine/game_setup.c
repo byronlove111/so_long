@@ -39,8 +39,8 @@ void	locate_character_spawn(t_game *instance)
 			{
 				instance->player.x = col;
 				instance->player.y = row;
-				ft_printf("Character spawn located at coordinates [%d,%d]\n", row,
-					col);
+				ft_printf("Character spawn located at coordinates [%d,%d]\n",
+					row, col);
 				return ;
 			}
 			col++;
