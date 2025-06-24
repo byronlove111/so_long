@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 04:48:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/24 15:34:58 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 20:40:48 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ t_game	*create_game_instance(char *level_file)
 	instance = malloc(sizeof(t_game));
 	if (!instance)
 		return (NULL);
-	instance->map = malloc(sizeof(t_map));
-	if (!instance->map || !setup_level_data(instance, level_file))
+	if (!setup_level_data(instance, level_file))
 	{
 		handle_init_failure(instance, 1);
 		return (NULL);
