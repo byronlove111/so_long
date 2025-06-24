@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:12:34 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/23 05:21:24 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:10:22 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,17 @@ int							verify_element_quantities(int player_count, int exit_count, int collec
 int							verify_game_elements(t_map *level_data);
 
 /* Map Connectivity Analyzer */
+char						**duplicate_level_grid(t_map *level_data);
+void						mark_collectible_accessible_areas(char **test_grid, int pos_x, int pos_y, int grid_width, int grid_height);
+void						mark_all_accessible_areas(char **test_grid, int pos_x, int pos_y, int grid_width, int grid_height);
+void						locate_player_spawn(t_map *level_data, int *spawn_x, int *spawn_y);
 int							analyze_level_connectivity(t_map *level_data);
 
-/* Map Accessibility Checker */
-int							verify_collectibles_accessibility(char **marked_grid, t_map *original_level);
-int							verify_exit_accessibility(char **accessibility_map, t_map *original_level);
+/* Map Connectivity Validator */
+int							verify_collectibles_reachable(char **connectivity_test, t_map *level_data);
+int							verify_exit_reachable(char **connectivity_test, t_map *level_data);
+
+
 
 /* Map Error Manager */
 void						display_validation_error(int error_type);

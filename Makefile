@@ -20,7 +20,7 @@ else
 # Pour Linux (au cas où)
 MLX_DIR = external/minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -lXext -lX11 -lm -lz
+MLX_FLAGS = -lXext -lX11 -lm -lz -L/usr/lib -L/usr/X11R6/lib
 MLX_COPY = # Pas besoin de copier pour Linux
 endif
 
@@ -39,7 +39,7 @@ SRCS =  src/main.c \
         src/map/map_structure_validator.c \
         src/map/map_element_validator.c \
         src/map/map_connectivity_analyzer.c \
-        src/map/map_accessibility_checker.c \
+        src/map/map_connectivity_validator.c \
         src/map/map_error_manager.c \
         src/map/map_render_engine.c \
         src/map/map_main_validator.c \

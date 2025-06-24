@@ -6,12 +6,12 @@
 #    By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/16 15:48:01 by abbouras          #+#    #+#              #
-#    Updated: 2024/11/16 15:50:56 by abbouras         ###   ########.fr        #
+#    Updated: 2025/06/24 12:14:13 by abbouras         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIC
 AR = ar -rcs
 
 NAME = libft.a
