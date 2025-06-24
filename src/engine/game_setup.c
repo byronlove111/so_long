@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 04:30:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/24 14:49:56 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:01:35 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ void	calculate_item_total(t_game *instance)
 
  * Initialise le composant carte du jeu en chargeant les données de 
  * niveau depuis un fichier.
- * Alloue la mémoire pour la structure de carte,
- * charge le contenu de la carte et valide
+ * Charge le contenu de la carte et valide
  * le format de carte et la conformité aux règles.
  * @param instance Pointeur vers la structure principale du jeu
  * @param level_file Chemin vers le fichier de carte .ber à charger
@@ -97,9 +96,6 @@ void	calculate_item_total(t_game *instance)
  */
 int	setup_level_data(t_game *instance, char *level_file)
 {
-	instance->map = malloc(sizeof(t_map) * 1);
-	if (!instance->map)
-		return (0);
 	if (!load_game_level(instance->map, level_file))
 		return (0);
 	if (perform_complete_validation(instance->map) != MAP_OK)
