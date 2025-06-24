@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 05:02:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/23 05:07:08 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:30:16 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int	initialize_graphics_system(t_graphics *render_system, t_map *level_data)
 {
 	if (!render_system || !level_data)
 		return (-1);
-	if (!establish_mlx_connection(render_system))
-	{
-		cleanup_graphics_resources(render_system);
+	
+	// MLX est déjà initialisé dans configure_graphics_system
+	if (!render_system->mlx)
 		return (0);
-	}
+		
 	if (!create_main_window(render_system, level_data))
 	{
 		cleanup_graphics_resources(render_system);

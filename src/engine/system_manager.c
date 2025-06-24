@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 04:48:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/06/24 12:41:45 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:30:01 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * Libère toutes les ressources allouées selon le stade d'échec
  * et affiche un message d'erreur informatif pour le débogage.
  * @param instance Structure de jeu partiellement initialisée
- * @param cleanup_stage Niveau de nettoyage requis (0-3)
+ * @param cleanup_stage Niveau de nettoyage requis (0-4)
  * @return void
  */
 void	handle_init_failure(t_game *instance, int cleanup_stage)
@@ -31,6 +31,13 @@ void	handle_init_failure(t_game *instance, int cleanup_stage)
 	}
 	if (cleanup_stage >= 2 && instance->graphics)
 		cleanup_graphics_resources(instance->graphics);
+	if (cleanup_stage >= 3 && instance->graphics && instance->graphics->mlx)
+	{
+#ifndef __APPLE__
+		mlx_destroy_display(instance->graphics->mlx);
+#endif
+		free(instance->graphics->mlx);
+	}
 	if (instance)
 		free(instance);
 }
@@ -48,9 +55,18 @@ int	configure_graphics_system(t_game *instance)
 	if (!instance->graphics)
 		return (0);
 	reset_graphics_structure(instance->graphics);
-	if (!initialize_graphics_system(instance->graphics, instance->map))
+	
+	// Initialisation MLX en premier
+	instance->graphics->mlx = mlx_init();
+	if (!instance->graphics->mlx)
 	{
 		free(instance->graphics);
+		return (0);
+	}
+	
+	if (!initialize_graphics_system(instance->graphics, instance->map))
+	{
+		cleanup_graphics_resources(instance->graphics);
 		return (0);
 	}
 	return (1);
